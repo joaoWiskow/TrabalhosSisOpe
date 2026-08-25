@@ -80,6 +80,16 @@ public class App {
             {0, 0, 0, 1},
             {0, 0, 0, 1}
         };
+        divisaoMatriz(imagem);
+        int idProc=0;
+
+        if(idProc==0){
+
+        }
+        if(idProc==1){}
+        if(idProc==2){}
+        if(idProc==3){}
+        
 
         // Execute as 3 seções em ordem:
         Coordenada coor[] = buscaCoor(imagem, 4, 4);
@@ -90,5 +100,57 @@ public class App {
         System.out.println(contaFiguras(coor, uf));
 
     }
+    public static void divisaoMatriz(int matriz[][]){
+        int linhas = matriz.length;
+        int colunas = matriz[0].length;
+
+        int meioLinhas = (int) Math.ceil(linhas / 2.0);
+        int meioColunas = (int) Math.ceil(colunas / 2.0);
+
+        int[][] topoEsq = new int[meioLinhas][meioColunas];
+        int[][] topoDir = new int[meioLinhas][colunas - meioColunas];
+        int[][] baixoEsq = new int[linhas - meioLinhas][meioColunas];
+        int[][] baixoDir = new int[linhas - meioLinhas][colunas - meioColunas];
+
+        // Preencher os blocos
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                if (i < meioLinhas && j < meioColunas) {
+                    topoEsq[i][j] = matriz[i][j];
+                } else if (i < meioLinhas && j >= meioColunas) {
+                    topoDir[i][j - meioColunas] = matriz[i][j];
+                } else if (i >= meioLinhas && j < meioColunas) {
+                    baixoEsq[i - meioLinhas][j] = matriz[i][j];
+                } else {
+                    baixoDir[i - meioLinhas][j - meioColunas] = matriz[i][j];
+                }
+            }
+        }
+
+        System.out.println("Topo Esquerdo:");
+        imprimir(topoEsq);
+
+        System.out.println("Topo Direito:");
+        imprimir(topoDir);
+
+        System.out.println("Baixo Esquerdo:");
+        imprimir(baixoEsq);
+
+        System.out.println("Baixo Direito:");
+        imprimir(baixoDir);
+
+    }
+     static void imprimir(int[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 
 }
+// git add .
+// git commit -m "Minha alteração"
+// git push
