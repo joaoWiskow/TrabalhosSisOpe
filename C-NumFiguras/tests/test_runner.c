@@ -1,6 +1,6 @@
 #include "../src/matrix.h"
-#include "../src/conta_objetos_seq.h"
-#include "../src/conta_objetos_par.h"
+#include "../src/conta-objetos-sequencial.h"
+#include "../src/conta-objetos-paralelo.h"
 #include <stdio.h>
 #include <stdlib.h>
 

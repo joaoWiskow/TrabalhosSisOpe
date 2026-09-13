@@ -1,4 +1,4 @@
-#include "conta_objetos_seq.h"
+#include "conta-objetos-sequencial.h"
 #include "union_find.h"
 #include <stdio.h>
 #include <stdlib.h>

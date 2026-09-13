@@ -1,5 +1,5 @@
-#ifndef CONTA_OBJETOS_PAR_H
-#define CONTA_OBJETOS_PAR_H
+#ifndef CONTA_OBJETOS_PARALELO_H
+#define CONTA_OBJETOS_PARALELO_H
 
 #include "matrix.h"
 
@@ -12,4 +12,4 @@ typedef struct {
 int conta_objetos_paralelo(const Matrix *mat, int num_threads);
 int conta_objetos_paralelo_config(const Matrix *mat, const ParallelConfig *config);
 
-#endif /* CONTA_OBJETOS_PAR_H */
+#endif /* CONTA_OBJETOS_PARALELO_H */

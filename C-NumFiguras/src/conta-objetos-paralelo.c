@@ -1,4 +1,4 @@
-#include "conta_objetos_par.h"
+#include "conta-objetos-paralelo.h"
 #include "union_find.h"
 #include <stdio.h>
 #include <stdlib.h>
