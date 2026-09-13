@@ -8,6 +8,7 @@ Este repositório contém a solução do trabalho prático da disciplina de **Si
 
 ```
 TrabalhosSisOpe/
+├── Makefile                  # Makefile raiz (compila e executa tudo com apenas 'make')
 ├── README.md                 # Visão geral do repositório
 ├── C-NumFiguras/             # IMPLEMENTAÇÃO OBRIGATÓRIA EM ANSI C (C89/C90) COM PTHREADS
 │   ├── Makefile              # Compilação em C89 estrito (-std=c89 -Wall -Wextra -pedantic -pthread)
@@ -25,64 +26,53 @@ TrabalhosSisOpe/
 
 ## 🚀 Como Compilar e Executar
 
-### 1. Projeto Principal em C (ANSI C89 / Pthreads)
+### 1. Execução Direta (Recomendado)
 
-Acesse a pasta `C-NumFiguras`:
+Basta estar na raiz do repositório e executar:
 ```bash
-cd C-NumFiguras
+make
 ```
+> **Nota:** Este comando irá compilar automaticamente o código C no padrão ANSI C89 e executar a suíte de testes validando as 5 matrizes obrigatórias do enunciado.
 
-#### Opção A: Usando o `Makefile` (Recomendado)
+---
 
-- **Compilar e Executar as 5 Matrizes Obrigatórias:**
+### 2. Opções Adicionais do Makefile (Projeto em C)
+
+Na raiz ou dentro da pasta `C-NumFiguras/`:
+
+- **Executar as 5 Matrizes Obrigatórias:**
   ```bash
   make test
   ```
 
-- **Compilar e Executar o Benchmark de Desempenho (Matrizes Grandes):**
+- **Executar a Medição de Desempenho (Benchmark em Matrizes Grandes):**
   ```bash
-  make run-benchmark
+  make benchmark
   ```
 
 - **Executar o Benchmark com Tamanho Personalizado:**
   ```bash
-  make benchmark
+  cd C-NumFiguras
   ./benchmark <linhas> <colunas> <densidade>
   # Exemplo de matriz 2000x2000 com 35% de densidade:
   ./benchmark 2000 2000 0.35
   ```
 
-- **Limpar Executáveis Compilados:**
+- **Limpar Arquivos Compilados:**
   ```bash
   make clean
   ```
 
-#### Opção B: Compilação Manual Direta (ANSI C89 Estrito)
-
-- **Compilação e execução da suíte de teste:**
-  ```bash
-  gcc -std=c89 -Wall -Wextra -pedantic -pthread -O2 src/matrix.c src/union_find.c src/conta_objetos_seq.c src/conta_objetos_par.c tests/test_runner.c -o test_runner -lm
-  ./test_runner
-  ```
-
 ---
 
-### 2. Projeto Auxiliar em Java
+### 3. Projeto Auxiliar em Java
 
 Acesse a pasta `Java-NumFiguras`:
 ```bash
 cd Java-NumFiguras
+javac App.java UnionFind.java
+java App
 ```
-
-- **Compilar o código Java:**
-  ```bash
-  javac App.java UnionFind.java
-  ```
-
-- **Executar o programa:**
-  ```bash
-  java App
-  ```
 
 ---
 

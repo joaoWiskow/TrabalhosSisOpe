@@ -35,19 +35,21 @@ A solução utiliza um **Union-Find** com:
 
 O projeto segue estritamente o padrão **ANSI C (C89/C90)** e compila em **Linux** e **macOS** sem nenhum erro ou aviso (*warning*).
 
-### Comando de Compilação de Referência (C89 Estrito):
+### Execução Simples com `make`:
+Basta rodar `make` na raiz do repositório ou dentro da pasta `C-NumFiguras/`:
 ```bash
-gcc -std=c89 -Wall -Wextra -pedantic -pthread -O2 src/matrix.c src/union_find.c src/conta_objetos_seq.c src/conta_objetos_par.c tests/test_runner.c -o test_runner -lm
+make
 ```
+> O comando acima compila os arquivos no padrão C89 estrito e executa automaticamente a suíte dos 5 testes obrigatórios.
 
-### Utilizando o `Makefile`:
+### Outras Opções de Execução:
 
-1. **Compilar e Executar a Suíte de Testes Obrigatórios:**
+1. **Executar Apenas a Suíte de Testes Obrigatórios:**
    ```bash
    make test
    ```
 
-2. **Compilar e Executar a Avaliação de Desempenho (Benchmark):**
+2. **Executar a Avaliação de Desempenho (Benchmark):**
    ```bash
    make run-benchmark
    ```
