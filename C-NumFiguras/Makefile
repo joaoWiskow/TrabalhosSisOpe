@@ -6,7 +6,7 @@ RESULTS_DIR = results
 
 SRCS = $(SRC_DIR)/matrix.c $(SRC_DIR)/union_find.c $(SRC_DIR)/conta_objetos_seq.c $(SRC_DIR)/conta_objetos_par.c
 
-all: test_runner benchmark
+all: test_runner benchmark test
 
 test_runner: $(SRCS) $(TEST_DIR)/test_runner.c
 	$(CC) $(CFLAGS) $(SRCS) $(TEST_DIR)/test_runner.c -o test_runner -lm
