@@ -1,0 +1,4 @@
+*.class
+*.o
+C-NumFiguras/test_runner
+C-NumFiguras/benchmark
