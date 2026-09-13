@@ -11,16 +11,18 @@ all: test_runner benchmark test
 test_runner: $(SRCS) $(TEST_DIR)/test_runner.c
 	$(CC) $(CFLAGS) $(SRCS) $(TEST_DIR)/test_runner.c -o test_runner -lm
 
-benchmark: $(SRCS) $(RESULTS_DIR)/benchmark.c
+benchmark_bin: $(SRCS) $(RESULTS_DIR)/benchmark.c
 	$(CC) $(CFLAGS) $(SRCS) $(RESULTS_DIR)/benchmark.c -o benchmark -lm
+
+benchmark: benchmark_bin
+	./benchmark 1000 1000 0.30
 
 test: test_runner
 	./test_runner
 
 run-benchmark: benchmark
-	./benchmark 1000 1000 0.30
 
 clean:
 	rm -f test_runner benchmark *.o
 
-.PHONY: all test run-benchmark clean
+.PHONY: all test benchmark run-benchmark clean
