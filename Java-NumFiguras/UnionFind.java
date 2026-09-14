@@ -1,7 +1,9 @@
+// Estrutura Union-Find (Disjoint-Set Union) thread-safe
 public class UnionFind {
     private int[] parent;
     private int[] rank;
 
+    // Inicializa os conjuntos disjuntos
     public UnionFind(int n) {
         parent = new int[n];
         rank = new int[n];
@@ -11,6 +13,7 @@ public class UnionFind {
         }
     }
 
+    // Busca o representante (raiz) com compressão de caminho
     public synchronized int find(int x) {
         if (parent[x] != x) {
             parent[x] = find(parent[x]); // Compressão de caminho
@@ -18,6 +21,7 @@ public class UnionFind {
         return parent[x];
     }
 
+    // Une dois conjuntos utilizando união por rank
     public synchronized void union(int x, int y) {
         int rx = find(x);
         int ry = find(y);
@@ -34,6 +38,7 @@ public class UnionFind {
         }
     }
 
+    // Verifica se dois elementos pertencem ao mesmo conjunto
     public synchronized boolean connected(int x, int y) {
         return find(x) == find(y);
     }

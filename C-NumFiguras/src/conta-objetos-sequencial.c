@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Algoritmo sequencial de contagem de objetos em 2 passagens */
 int conta_objetos_sequencial(const Matrix *mat) {
     int rows, cols, total_cells;
     UnionFind *uf;

@@ -7,3 +7,5 @@
 int conta_objetos_sequencial(const Matrix *mat);
 
 #endif /* CONTA_OBJETOS_SEQUENCIAL_H */
+
+

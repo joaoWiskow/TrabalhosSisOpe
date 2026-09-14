@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Cria a estrutura Union-Find e inicializa mutex */
 UnionFind *uf_create(int n) {
     UnionFind *uf;
     int i;
@@ -44,6 +45,7 @@ UnionFind *uf_create(int n) {
     return uf;
 }
 
+/* Destrói o Union-Find e libera a memória */
 void uf_destroy(UnionFind *uf) {
     if (uf == NULL) {
         return;
@@ -54,7 +56,7 @@ void uf_destroy(UnionFind *uf) {
     free(uf);
 }
 
-/* Find com compressao de caminho iterativo (sem recursao para evitar estouro de pilha) */
+/* Find com compressão de caminho iterativa */
 int uf_find(UnionFind *uf, int i) {
     int root = i;
     int curr, next;
@@ -91,6 +93,7 @@ void uf_union(UnionFind *uf, int i, int j) {
     }
 }
 
+/* Find thread-safe (protegido por mutex) */
 int uf_find_threadsafe(UnionFind *uf, int i) {
     int root;
     pthread_mutex_lock(&uf->lock);
@@ -99,6 +102,7 @@ int uf_find_threadsafe(UnionFind *uf, int i) {
     return root;
 }
 
+/* Union thread-safe (protegido por mutex) */
 void uf_union_threadsafe(UnionFind *uf, int i, int j) {
     pthread_mutex_lock(&uf->lock);
     uf_union(uf, i, j);
