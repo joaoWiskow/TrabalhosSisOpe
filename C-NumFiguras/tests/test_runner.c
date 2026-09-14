@@ -73,6 +73,7 @@ typedef struct {
     ParallelConfig pcfg;
 } TestCase;
 
+/* Executor dos testes de validação */
 int main(void) {
     TestCase tests[5];
     int i;

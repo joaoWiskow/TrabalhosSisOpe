@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Aloca uma nova matriz dinamicamente */
 Matrix *matrix_create(int rows, int cols) {
     Matrix *mat;
     int i;
@@ -42,6 +43,7 @@ Matrix *matrix_create(int rows, int cols) {
     return mat;
 }
 
+/* Desaloca a memória reservada para a matriz */
 void matrix_free(Matrix *mat) {
     int i;
     if (mat == NULL) {
@@ -58,6 +60,7 @@ void matrix_free(Matrix *mat) {
     free(mat);
 }
 
+/* Converte um array unidimensional em uma matriz binária 2D */
 Matrix *matrix_create_from_array(int rows, int cols, const int *flat_data) {
     Matrix *mat;
     int i, j;
@@ -76,6 +79,7 @@ Matrix *matrix_create_from_array(int rows, int cols, const int *flat_data) {
     return mat;
 }
 
+/* Gera matriz binária aleatória com base em uma densidade */
 Matrix *matrix_generate_random(int rows, int cols, double density, unsigned int seed) {
     Matrix *mat;
     int i, j;
@@ -96,6 +100,7 @@ Matrix *matrix_generate_random(int rows, int cols, double density, unsigned int 
     return mat;
 }
 
+/* Exibe os valores da matriz no console */
 void matrix_print(const Matrix *mat) {
     int i, j;
     if (mat == NULL) {

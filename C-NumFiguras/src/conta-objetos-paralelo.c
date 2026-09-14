@@ -25,7 +25,7 @@ typedef struct {
 static const int dr[8] = {-1, -1, -1,  0, 0,  1, 1, 1};
 static const int dc[8] = {-1,  0,  1, -1, 1, -1, 0, 1};
 
-/* Função executada pelas threads na Fase 1: Rotulagem Local */
+/* Fase 1: Rotulagem local em paralelo por bloco */
 static void *thread_local_labeling(void *arg) {
     ThreadData *data = (ThreadData *)arg;
     const Matrix *mat = data->mat;
@@ -55,7 +55,7 @@ static void *thread_local_labeling(void *arg) {
     return NULL;
 }
 
-/* Consolidação de Fronteiras entre blocos adjacentes (Fase 2) */
+/* Fase 2: Consolidação de fronteiras (Stitching) */
 static void consolidar_fronteiras(const Matrix *mat, UnionFind *uf, int grid_rows, int grid_cols) {
     int rows = mat->rows;
     int cols = mat->cols;
@@ -116,7 +116,7 @@ static void consolidar_fronteiras(const Matrix *mat, UnionFind *uf, int grid_row
     }
 }
 
-/* Função executada pelas threads na Fase 3: Contagem Local de Raízes */
+/* Fase 3: Contagem local em paralelo das raízes do Union-Find */
 static void *thread_local_counting(void *arg) {
     ThreadData *data = (ThreadData *)arg;
     const Matrix *mat = data->mat;
@@ -140,6 +140,7 @@ static void *thread_local_counting(void *arg) {
     return NULL;
 }
 
+/* Executa o algoritmo paralelo em 3 fases utilizando Pthreads */
 int conta_objetos_paralelo_config(const Matrix *mat, const ParallelConfig *config) {
     int rows, cols, total_cells;
     int grid_rows, grid_cols, num_threads;
@@ -240,6 +241,7 @@ int conta_objetos_paralelo_config(const Matrix *mat, const ParallelConfig *confi
     return total_objects;
 }
 
+/* Contagem paralela mapeando automaticamente o número de threads para a grade 2D */
 int conta_objetos_paralelo(const Matrix *mat, int num_threads) {
     ParallelConfig config;
 

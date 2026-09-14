@@ -6,7 +6,7 @@ public class App {
     private static final int[] DR = {-1, -1, -1,  0, 0,  1, 1, 1};
     private static final int[] DC = {-1,  0,  1, -1, 1, -1, 0, 1};
 
-    // Método Sequencial de referência com Conectividade 8
+    // Contagem sequencial de objetos (conectividade 8) usando Union-Find
     public static int contaObjetosSequencial(int[][] imagem) {
         int rows = imagem.length;
         int cols = imagem[0].length;
@@ -44,7 +44,7 @@ public class App {
         return objetos;
     }
 
-    // Método Paralelo com Decomposição por Blocos e Consolidação de Fronteiras
+    // Contagem paralela por blocos 2D com consolidação de fronteiras (3 fases)
     public static int contaObjetosParalelo(int[][] imagem, int gridRows, int gridCols) {
         int rows = imagem.length;
         int cols = imagem[0].length;
@@ -155,6 +155,7 @@ public class App {
         return objetos;
     }
 
+    // Executa os testes de validação das matrizes
     public static void main(String[] args) {
         System.out.println("================================================================================");
         System.out.println("            CONTAGEM DE OBJETOS EM JAVA (SEQUENCIAL VS PARALELO)                ");
