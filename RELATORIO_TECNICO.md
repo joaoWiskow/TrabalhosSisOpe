@@ -579,7 +579,6 @@ Todos os integrantes declaram compreender integralmente o código, as estruturas
 | POSIX Time (`<sys/time.h>`) | Medição de tempo de alta precisão (`gettimeofday`) | Padrão POSIX | Padrão Aberto | `results/benchmark.c` |
 | Editor de Tabelas C | Apoio na estruturação de matrizes binárias de teste | [https://filipomor.com/editor-tabelas-c](https://filipomor.com/editor-tabelas-c) | Livre | `tests/test_runner.c` |
 | Algoritmo Union-Find (Tarjan, 1975) | Conceito de conjuntos disjuntos com compressão de caminho e união por rank | Teoria dos Grafos | Domínio Público | `src/union_find.c` |
-| Python Matplotlib, Pandas e ReportLab | Apoio na geração de gráficos `.png` e compilação do PDF dos slides | [https://matplotlib.org](https://matplotlib.org) | Open Source | `results/*.png`, `slides/apresentacao.pdf` |
 
 ## 16. Checklist de entrega
 
