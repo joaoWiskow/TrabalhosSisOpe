@@ -23,7 +23,7 @@
 | Turma | 30 |
 | Estratégia paralela | Pthreads (POSIX Threads) com decomposição em grade de blocos 2D e consolidação de fronteiras via Union-Find |
 | Plataforma testada | macOS (Apple M5, arm64) / Linux |
-| Commit avaliado | `d2ac9f93da89be522c4806505ab64f8d17ae49f0` |
+| Commit avaliado | `42c9e35c5657daed6f58edb11dd2ab2217dbe1e5` |
 
 ## Resumo
 
