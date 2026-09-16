@@ -1,61 +1,74 @@
-# TrabalhosSisOpe - Contagem Paralela de Objetos em Matriz Binária
+# Contagem Paralela de Objetos em uma Matriz Binária (ANSI C89 / Pthreads)
 
-Este repositório contém a solução do trabalho prático da disciplina de **Sistemas Operacionais (PUCRS)** sobre contagem paralela de objetos conexos em matrizes binárias com **conectividade 8**, comparando implementações sequencial e paralela.
-
----
-
-## 📂 Estrutura do Repositório
-
-```
-TrabalhosSisOpe/
-├── Makefile                  # Makefile raiz (compila e executa tudo com apenas 'make')
-├── README.md                 # Visão geral do repositório
-├── C-NumFiguras/             # IMPLEMENTAÇÃO OBRIGATÓRIA EM ANSI C (C89/C90) COM PTHREADS
-│   ├── Makefile              # Compilação em C89 estrito (-std=c89 -Wall -Wextra -pedantic -pthread)
-│   ├── README.md             # Documentação técnica completa e fundamentação teórica
-│   ├── src/                  # Código-fonte da matriz, Union-Find e algoritmos (Seq / Par)
-│   ├── tests/                # Testes automatizados das 5 matrizes obrigatórias
-│   ├── results/              # Medição de desempenho e aceleração (Speedup)
-│   └── slides/               # Roteiro e apresentação (PDF)
-└── Java-NumFiguras/          # IMPLEMENTAÇÃO EM JAVA (SEQUENCIAL E THREADS)
-    ├── App.java              # Algoritmo de contagem sequencial e paralelo
-    └── UnionFind.java        # Estrutura Union-Find sincronizada
-```
+> **Disciplina:** Sistemas Operacionais - 2026/II  
+> **Professor:** Prof. Filipo Novo Mór  
+> **Instituição:** Pontifícia Universidade Católica do Rio Grande do Sul - Escola Politécnica  
+> **Autores:** João Pedro Wiskow Marth, Rafael dos Reis, Guilherme Dentzien Silva e Lucas Goettert Lopes  
 
 ---
 
-## 🚀 Como Compilar e Executar
+## 📌 Apresentação do Trabalho
+
+Este projeto consiste na implementação e análise de algoritmos para contagem de componentes conexos (objetos) em matrizes binárias utilizando **conectividade 8**. Foram desenvolvidas duas abordagens funcionalmente equivalentes em **ANSI C (C89/C90)** com a biblioteca POSIX Threads (**Pthreads**):
+
+1. **Versão Sequencial:** Servindo como referência de correção e base para medição de desempenho.
+2. **Versão Paralela Concorrente:** Utilizando decomposição por blocos 2D e consolidação determinística de fronteiras (*stitching*) entre threads trabalhadoras.
+
+---
+
+## 🛠️ Arquitetura e Estratégia de Paralelização
+
+### 1. Conectividade 8
+Dois pixels de valor `1` pertencem ao mesmo objeto se forem adjacentes horizontalmente, verticalmente ou em qualquer uma das 4 diagonais.
+
+### 2. Estrutura de Dados: Union-Find (Disjoint Set Union)
+A solução utiliza um **Union-Find** com:
+- **Compressão de Caminho (Path Compression):** Reduz a profundidade da árvore para garantir consultas $O(\alpha(N)) \approx O(1)$.
+- **União por Rank (Union by Rank):** Mantém as árvores de componentes balanceadas.
+- **Sincronização por Mutex (`pthread_mutex_t`):** Garante acesso seguro e atômico durante a fusão de rótulos entre bordas concorrentes.
+
+### 3. Decomposição do Problema e Consolidação de Fronteiras
+- **Decomposição Geométrica em Blocos 2D:** A matriz de tamanho $R \times C$ é dividida em uma grade de sub-blocos. Cada thread recebe um bloco único.
+- **Fase 1 (Rotulagem Local - Sem Contenção):** Cada thread processa exclusivamente os elementos internos do seu bloco.
+- **Fase 2 (Consolidação de Fronteiras / Stitching):** As fronteiras horizontais, verticais e quinas diagonais de 4 blocos são unificadas no Union-Find.
+- **Fase 3 (Contagem Global):** Contagem em paralelo das raízes distintas pertencentes a células de primeiro plano (`1`).
+
+---
+
+## 🚀 Compilação e Execução
+
+O projeto segue estritamente o padrão **ANSI C (C89/C90)** e compila em **Linux** e **macOS** sem nenhum erro ou aviso (*warning*).
 
 ### 1. Execução Direta (Recomendado)
-
-Basta estar na raiz do repositório e executar:
 ```bash
 make
 ```
-> **Nota:** Este comando irá compilar automaticamente o código C no padrão ANSI C89 e executar a suíte de testes validando as 5 matrizes obrigatórias do enunciado.
+> **Nota para o Professor:** O comando `make` compila o código em C89 estrito e executa automaticamente a validação das 5 matrizes obrigatórias e a avaliação de desempenho (benchmark).
+
+### 2. Recompilação Limpa do Zero
+```bash
+make clean && make
+```
+> Apaga executáveis antigos (`make clean`) e recompila todo o projeto do zero, executando em seguida os testes e o benchmark.
 
 ---
 
-### 2. Opções Adicionais do Makefile (Projeto em C)
+### Outros Comandos do Makefile:
 
-Na raiz ou dentro da pasta `C-NumFiguras/`:
-
-- **Executar as 5 Matrizes Obrigatórias:**
+- **Executar Apenas a Suíte dos 5 Testes Obrigatórios:**
   ```bash
   make test
   ```
 
-- **Executar a Medição de Desempenho (Benchmark em Matrizes Grandes):**
+- **Executar Apenas a Avaliação de Desempenho (Benchmark):**
   ```bash
   make benchmark
   ```
 
-- **Executar o Benchmark com Tamanho Personalizado:**
+- **Executar o Benchmark com Exportação para CSV:**
   ```bash
-  cd C-NumFiguras
-  ./benchmark <linhas> <colunas> <densidade>
-  # Exemplo de matriz 2000x2000 com 35% de densidade:
-  ./benchmark 2000 2000 0.35
+  make run-benchmark
+  # Ou parametrizado: ./benchmark <linhas> <colunas> <densidade> <arquivo_csv>
   ```
 
 - **Limpar Arquivos Compilados:**
@@ -65,38 +78,54 @@ Na raiz ou dentro da pasta `C-NumFiguras/`:
 
 ---
 
-### 3. Projeto Auxiliar em Java
+## 📁 Estrutura do Repositório
 
-Acesse a pasta `Java-NumFiguras`:
-```bash
-cd Java-NumFiguras
-javac App.java UnionFind.java
-java App
+```text
+.
+├── README.md                 # Descrição geral, compilação e uso
+├── RELATORIO_TECNICO.md      # Relatório técnico completo de 16 seções
+├── Makefile                  # Script de compilação ANSI C89
+├── src/
+│   ├── matrix.h / matrix.c   # Manipulação e alocação de matrizes binárias
+│   ├── union_find.h / .c     # Estrutura Union-Find thread-safe
+│   ├── conta-objetos-sequencial.h / .c # Algoritmo sequencial de referência
+│   └── conta-objetos-paralelo.h / .c   # Algoritmo paralelo com Pthreads e stitching
+├── tests/
+│   └── test_runner.c         # Suíte de teste das 5 matrizes obrigatórias
+├── results/
+│   ├── benchmark.c           # Medição de tempo e exportação em CSV
+│   ├── medicoes.csv          # Dados brutos das medições
+│   ├── grafico-tempo.png     # Gráfico de tempo de execução
+│   ├── grafico-aceleracao.png# Gráfico de velocidade (Speedup)
+│   └── grafico-eficiencia.png# Gráfico de eficiência paralela
+└── slides/
+    └── apresentacao.pdf      # Apresentação de slides em PDF (10 min)
 ```
 
 ---
 
-## 🎯 Resumo da Solução e Requisitos Atendidos
+## 📊 Matrizes Obrigatórias de Teste e Resultados
 
-1. **Linguagem e Padrão:** Desenvolvido em **ANSI C (C89/C90)** utilizando **POSIX Threads (Pthreads)** e sincronização via mutexes.
-2. **Conectividade 8:** Varredura em 8 direções (horizontal, vertical e 4 diagonais).
-3. **Decomposição e Consolidação de Fronteiras:** Matriz particionada em grade de blocos 2D. Fase 1 de rotulagem local paralela e Fase 2 de consolidação (*stitching*) nas bordas e quinas de 4 blocos para unificar componentes que cruzam regiões.
-4. **Validação:** Todas as 5 matrizes obrigatórias (5x5, 6x8, 8x8, 9x12, 12x12) foram validadas com resultados idênticos aos esperados (3, 4, 5, 6 e 7 objetos).
-5. **Desempenho:** Avaliação de *Speedup* ($S = T_{seq} / T_{par}$) em matrizes binárias grandes.
+Todas as 5 matrizes obrigatórias foram executadas e validadas pela suíte de teste automatizada:
+
+| Ex. | Dimensões | Grade Ilustrativa | Esperado | Sequencial | Paralelo (Pthreads) | Status |
+|:---:|:---------:|:-----------------:|:--------:|:----------:|:------------------:|:------:|
+| **1** | 5 x 5 | 2 x 2 blocos | **3** | 3 | 3 | **SUCESSO** |
+| **2** | 6 x 8 | 2 x 2 blocos | **4** | 4 | 4 | **SUCESSO** |
+| **3** | 8 x 8 | 2 x 2 blocos | **5** | 5 | 5 | **SUCESSO** |
+| **4** | 9 x 12 | 3 x 3 blocos | **6** | 6 | 6 | **SUCESSO** |
+| **5** | 12 x 12 | 3 x 3 blocos | **7** | 7 | 7 | **SUCESSO** |
 
 ---
 
 ## 📚 Bibliotecas, Referências, Ferramentas e Códigos Externos
 
-- **Bibliotecas POSIX e Standard C (ANSI C89):**
-  - `<pthread.h>`: Chamadas da API POSIX para criação (`pthread_create`), aguardo (`pthread_join`) e sincronização por mutex (`pthread_mutex_init`, `pthread_mutex_lock`, `pthread_mutex_unlock`) para controle da região crítica no Union-Find.
-  - `<stdio.h>`, `<stdlib.h>`, `<string.h>`, `<math.h>`: Funções de entrada/saída, manipulação de memória dinâmica (`malloc`, `free`) e rotinas matemáticas.
-  - `<sys/time.h>`: Função POSIX `gettimeofday` para medição de alta precisão de tempo e desempenho.
+- **Bibliotecas POSIX e Padrão ANSI C (C89):**
+  - `<pthread.h>`: Interface POSIX para criação, coordenação e finalização de threads e mutexes.
+  - `<stdio.h>`, `<stdlib.h>`, `<string.h>`, `<math.h>`: Gerenciamento de E/S, memória e matemática.
+  - `<sys/time.h>`: Medição de tempo de alta precisão via `gettimeofday`.
 - **Ferramentas:**
-  - **GCC / Clang:** Compiladores C configurados com flags restritivas ANSI C89 (`-std=c89 -Wall -Wextra -pedantic -pthread`).
-  - **GNU Make:** Automação de compilação.
-  - **Editor de Tabelas C (Filipo Mor):** Ferramenta de apoio para montagem e geração de matrizes de teste (https://filipomor.com/editor-tabelas-c).
+  - **GCC / Clang:** Compiladores C (`-std=c89 -Wall -Wextra -pedantic -pthread -O2`).
+  - **GNU Make:** Gerenciador de compilação automatizada.
 - **Códigos Externos e Referências:**
-  - Conceito e algoritmos clássicos da estrutura **Union-Find (Disjoint Set Union)** com compressão de caminho e união por rank (Tarjan, 1975).
-- **Declaração de Autoria e Responsabilidade:**
-  - Toda a lógica de particionamento de matrizes, sincronização de threads, rotulagem local e algoritmo de consolidação de fronteiras (*stitching*) foi implementada e compreendida integralmente pelos autores. A responsabilidade pela correção e compreensão da solução permanece com o grupo.
+  - Algoritmo Union-Find (Tarjan, 1975).
