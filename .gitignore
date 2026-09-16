@@ -1,4 +1,5 @@
 *.class
 *.o
-C-NumFiguras/test_runner
-C-NumFiguras/benchmark
+test_runner
+benchmark
+.DS_Store
