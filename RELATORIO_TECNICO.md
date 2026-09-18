@@ -14,7 +14,7 @@
 | Integrante 1 | João Pedro Wiskow Marth |
 | Matrícula do integrante 1 | [23110008] |
 | Integrante 2 | Rafael dos Reis |
-| Matrícula do integrante 2 | [PREENCHER] |
+| Matrícula do integrante 2 | [24104800] |
 | Integrante 3 | Guilherme Dentzien Silva |
 | Matrícula do integrante 3 | [PREENCHER] |
 | Integrante 4 | Lucas Goettert Lopes |
