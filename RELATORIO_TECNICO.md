@@ -12,7 +12,7 @@
 | Campo | Informação |
 |---|---|
 | Integrante 1 | João Pedro Wiskow Marth |
-| Matrícula do integrante 1 | [PREENCHER] |
+| Matrícula do integrante 1 | [23110008] |
 | Integrante 2 | Rafael dos Reis |
 | Matrícula do integrante 2 | [PREENCHER] |
 | Integrante 3 | Guilherme Dentzien Silva |
