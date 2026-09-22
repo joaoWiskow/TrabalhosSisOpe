@@ -18,7 +18,7 @@
 | Integrante 3 | Guilherme Dentzien Silva |
 | Matrícula do integrante 3 | [PREENCHER] |
 | Integrante 4 | Lucas Goettert Lopes |
-| Matrícula do integrante 4 | [PREENCHER] |
+| Matrícula do integrante 4 | [23102500] |
 | Modalidade | Grupo (4 integrantes) |
 | Turma | 30 |
 | Estratégia paralela | Pthreads (POSIX Threads) com decomposição em grade de blocos 2D e consolidação de fronteiras via Union-Find |
