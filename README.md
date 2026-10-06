@@ -14,6 +14,9 @@ Este projeto consiste na implementação e análise de algoritmos para contagem 
 1. **Versão Sequencial:** Servindo como referência de correção e base para medição de desempenho.
 2. **Versão Paralela Concorrente:** Utilizando decomposição por blocos 2D e consolidação determinística de fronteiras (*stitching*) entre threads trabalhadoras.
 
+> 🎥 **Vídeo da Apresentação Gravada (YouTube):** [https://youtu.be/Ch_qF0VLAjM](https://youtu.be/Ch_qF0VLAjM)  
+> 📄 **Slides da Apresentação em PDF:** [`slides/apresentacao.pdf`](slides/apresentacao.pdf)
+
 ---
 
 ## 🛠️ Arquitetura e Estratégia de Paralelização

@@ -540,7 +540,7 @@ A avaliação de desempenho evidenciou as diferenças práticas entre concorrên
 | Campo | Informação |
 |---|---|
 | Plataforma | YouTube |
-| Link privado ou não listado | `https://www.youtube.com/watch?v=EXEMPLO_LINK_TRABALHO` |
+| Link privado ou não listado | [https://youtu.be/Ch_qF0VLAjM](https://youtu.be/Ch_qF0VLAjM) (ou `https://www.youtube.com/watch?v=Ch_qF0VLAjM`) |
 | Duração | 09:45 (máximo de 10 minutos) |
 | Privacidade | Não listado |
 | Senha, se aplicável | Não se aplica |
