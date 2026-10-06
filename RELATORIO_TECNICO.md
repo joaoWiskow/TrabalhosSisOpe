@@ -16,7 +16,7 @@
 | Integrante 2 | Rafael dos Reis |
 | Matrícula do integrante 2 | [24104800] |
 | Integrante 3 | Guilherme Dentzien Silva |
-| Matrícula do integrante 3 | [PREENCHER] |
+| Matrícula do integrante 3 | [24102285] |
 | Integrante 4 | Lucas Goettert Lopes |
 | Matrícula do integrante 4 | [23102500] |
 | Modalidade | Grupo (4 integrantes) |
